@@ -1,17 +1,22 @@
-import { Text, View, Pressable } from 'react-native'
-import React from 'react'
+import { Text, Pressable } from "react-native";
+import React from "react";
 
 type PrimaryButtonProps = {
   children: React.ReactNode;
   onPress?: () => void;
-}
+};
 
 function PrimaryButton({ children, onPress }: PrimaryButtonProps) {
   return (
-    <Pressable onPress={onPress} className='bg-yellow-500 px-6 py-3 rounded-lg active:opacity-80'>
-      <Text className='text-center text-lg font-bold text-white'>{children}</Text>
+    <Pressable
+      onPress={onPress}
+      className="bg-purple-500 rounded-lg px-6 py-3 w-full active:bg-purple-600 shadow-lg"
+    >
+      <Text className="text-center text-lg font-bold text-purple-50">
+        {children}
+      </Text>
     </Pressable>
-  )
+  );
 }
 
-export default PrimaryButton
+export default PrimaryButton;
