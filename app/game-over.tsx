@@ -1,9 +1,8 @@
 import { View, Text } from 'react-native'
 import { router } from 'expo-router'
-import React from 'react'
 import PrimaryButton from '../components/PrimaryButton';
 
-function GameOverScreen() {
+export default function Page() {
   function startNewGameHandler() {
     router.replace('/');
   }
@@ -15,5 +14,3 @@ function GameOverScreen() {
     </View>
   )
 }
-
-export default GameOverScreen
