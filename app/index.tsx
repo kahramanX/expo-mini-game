@@ -1,15 +1,32 @@
-import { View, TextInput, Text } from "react-native";
+import { View, TextInput, Text, Alert } from "react-native";
 import { router } from "expo-router";
 import PrimaryButton from "../components/PrimaryButton";
 import { LinearGradient } from "expo-linear-gradient";
+import { useGame } from "../contexts/GameContext";
 
 export default function Page() {
-  function confirmHandler() {
-    // router.push("/game");
+  const { enteredNumber, setEnteredNumber, resetNumber } = useGame();
+
+  function numberInputHandler() {
+    const chosenNumber = parseInt(enteredNumber);
+
+    if (chosenNumber > 99 || chosenNumber < 1 || isNaN(chosenNumber)) {
+      Alert.alert("Invalid number!", "Number has to be between 1 and 99.", [
+        { text: "Okay", style: "destructive", onPress: resetHandler },
+      ]);
+    } else {
+      confirmHandler();
+    }
   }
 
   function resetHandler() {
-    // Reset işlemi - şimdilik boş
+    resetNumber();
+    console.log("Game Reset");
+  }
+
+  function confirmHandler() {
+    router.push("/game");
+    console.log("NumberConfirmed");
   }
 
   return (
@@ -36,13 +53,15 @@ export default function Page() {
           maxLength={2}
           autoCapitalize="none"
           autoCorrect={false}
+          value={enteredNumber}
+          onChangeText={setEnteredNumber}
         />
         <View className="flex-row w-full gap-2">
           <View className="flex-1">
             <PrimaryButton onPress={resetHandler}>Reset</PrimaryButton>
           </View>
           <View className="flex-1">
-            <PrimaryButton onPress={confirmHandler}>Confirm</PrimaryButton>
+            <PrimaryButton onPress={numberInputHandler}>Confirm</PrimaryButton>
           </View>
         </View>
       </View>

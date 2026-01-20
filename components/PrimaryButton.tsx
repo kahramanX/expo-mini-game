@@ -4,17 +4,26 @@ import React from "react";
 type PrimaryButtonProps = {
   children: React.ReactNode;
   onPress?: () => void;
+  variant?: "purple" | "blue" | "red";
 };
 
-function PrimaryButton({ children, onPress }: PrimaryButtonProps) {
+function PrimaryButton({
+  children,
+  onPress,
+  variant = "purple",
+}: PrimaryButtonProps) {
+  const colorClasses = {
+    purple: "bg-purple-500 active:bg-purple-600 text-purple-50",
+    blue: "bg-blue-500 active:bg-blue-600 text-blue-50",
+    red: "bg-red-500 active:bg-red-600 text-red-50",
+  };
+
   return (
     <Pressable
       onPress={onPress}
-      className="bg-purple-500 rounded-lg px-6 py-3 w-full active:bg-purple-600 shadow-lg"
+      className={`${colorClasses[variant]} rounded-lg px-6 py-3 w-full shadow-lg`}
     >
-      <Text className="text-center text-lg font-bold text-purple-50">
-        {children}
-      </Text>
+      <Text className="text-center text-lg font-bold">{children}</Text>
     </Pressable>
   );
 }
