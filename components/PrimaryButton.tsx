@@ -5,12 +5,14 @@ type PrimaryButtonProps = {
   children: React.ReactNode;
   onPress?: () => void;
   variant?: "purple" | "blue" | "red";
+  textClassName?: string;
 };
 
 function PrimaryButton({
   children,
   onPress,
   variant = "purple",
+  textClassName,
 }: PrimaryButtonProps) {
   const colorClasses = {
     purple: "bg-purple-500 active:bg-purple-600 text-purple-50",
@@ -23,7 +25,9 @@ function PrimaryButton({
       onPress={onPress}
       className={`${colorClasses[variant]} rounded-lg px-6 py-3 w-full shadow-lg`}
     >
-      <Text className="text-center text-lg font-bold">{children}</Text>
+      <Text className={`${textClassName ?? "text-center text-lg font-bold"}`}>
+        {children}
+      </Text>
     </Pressable>
   );
 }
