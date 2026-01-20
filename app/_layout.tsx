@@ -1,8 +1,11 @@
-import { Stack } from 'expo-router';
+import { Stack } from "expo-router";
 import "../global.css";
+import { GameProvider } from "../contexts/GameContext";
 
 export default function Layout() {
   return (
-    <Stack screenOptions={{ headerShown: false }} />
+    <GameProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </GameProvider>
   );
 }
