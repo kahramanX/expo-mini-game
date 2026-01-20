@@ -2,6 +2,7 @@ import { View, Text } from "react-native";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import PrimaryButton from "../components/PrimaryButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Page() {
   function startNewGameHandler() {
@@ -13,19 +14,20 @@ export default function Page() {
       colors={["#f87171", "#ef4444", "#dc2626"]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        paddingHorizontal: 16,
-      }}
+      style={{ flex: 1 }}
     >
-      <View className="w-full max-w-md justify-center items-center px-6 py-8 rounded-lg bg-red-900/80 border-2 border-red-400/30 shadow-2xl">
-        <Text className="text-red-100 text-3xl font-bold mb-6">Game Over!</Text>
-        <PrimaryButton onPress={startNewGameHandler} variant="red">
-          Start New Game
-        </PrimaryButton>
-      </View>
+      <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
+        <View className="flex-1 justify-center items-center px-4">
+          <View className="w-full max-w-md justify-center items-center px-6 py-8 rounded-lg bg-red-900/80 border-2 border-red-400/30 shadow-2xl">
+            <Text className="text-red-100 text-3xl font-bold mb-6">
+              Game Over!
+            </Text>
+            <PrimaryButton onPress={startNewGameHandler} variant="red">
+              Start New Game
+            </PrimaryButton>
+          </View>
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }
