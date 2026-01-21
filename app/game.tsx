@@ -102,7 +102,7 @@ export default function Page() {
       <SafeAreaView style={{ flex: 1 }} edges={["top", "bottom"]}>
         <View className="border p-5 mx-8 rounded-md">
           <Text className="text-blue-100 text-3xl font-bold text-center">
-            Opponent's Guess: {targetNumber}
+            Opponent's Guess
           </Text>
         </View>
         <View className="border-2 mt-10 rounded-md mx-8 shadow-lg">
