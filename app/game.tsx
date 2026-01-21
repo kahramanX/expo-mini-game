@@ -1,4 +1,4 @@
-import { View, Text, Alert } from "react-native";
+import { View, Text, Alert, ScrollView } from "react-native";
 import { router } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import PrimaryButton from "../components/PrimaryButton";
@@ -27,6 +27,7 @@ export default function Page() {
   const [maxBoundary, setMaxBoundary] = useState<number>(100);
   const initialGuess = generateRandomBetween(1, 100, targetNumber);
   const [opponentNumber, setOpponentNumber] = useState<number>(initialGuess);
+  const [guessRounds, setGuessRounds] = useState<number[]>([initialGuess]);
 
   // Reset boundaries when component mounts
   useEffect(() => {
@@ -76,6 +77,7 @@ export default function Page() {
     setMinBoundary(newMinBoundary);
     setMaxBoundary(newMaxBoundary);
     setOpponentNumber(newRndNumber);
+    setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
 
   function incrementHandler() {
@@ -108,7 +110,12 @@ export default function Page() {
             {opponentNumber}
           </Text>
         </View>
-        <View className="flex-1 justify-center items-center px-4">
+        <View className="mt-10 justify-center items-center px-4">
+          <View className="mb-4">
+            <Text className="text-white text-2xl font-bold text-center">
+              Higher or lower?
+            </Text>
+          </View>
           <View className="w-full flex-row gap-2 max-w-md justify-center items-center px-4 py-4 rounded-lg bg-blue-900/50 border-2 shadow-2xl">
             <View className="flex-1">
               <PrimaryButton
@@ -130,6 +137,26 @@ export default function Page() {
             </View>
           </View>
         </View>
+        {guessRounds.length > 0 && (
+          <ScrollView className="flex-1 px-4 mt-4">
+            {guessRounds.map((guess, index) => (
+              <View
+                key={`${guess}-${index}`}
+                className="bg-blue-900/50 border border-blue-400/30 rounded-lg p-4 mb-2 mx-4 flex-row justify-between"
+              >
+                <Text className="text-white text-2xl font-bold text-center">
+                  #{guessRounds.length - index}
+                </Text>
+                <Text className="text-white text-2xl font-bold text-center ">
+                  -
+                </Text>
+                <Text className="text-white text-2xl font-bold text-center">
+                  {guess}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
+        )}
       </SafeAreaView>
     </LinearGradient>
   );
